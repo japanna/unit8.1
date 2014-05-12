@@ -50,6 +50,7 @@ summarize:
 	bgt $s0, $s1, increment		# if sum is greater to number 
 								# , it's not a perfect no 
 
+	beq $s0, $s1, is_sum 		
 
 print:
 	li $s0, 0					# reset sum
@@ -74,6 +75,7 @@ is_sum:
 	
 	beq $t5, $s1, print		# if the divisor equals the number we're looking at, 
 								# print the number 
+	b inner
 
 increment:
 	add $s1, $s1, 1 		# increment number we're looking at
