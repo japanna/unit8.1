@@ -87,10 +87,6 @@ convertLowerA:
 	add $t3, $t3, 32
 	b testConvertedA
 
-moveBack:
-	subu	$t2, $t2, 1                	#  decrement B,
-	b testConvertedA
-
 convertLowerB:
 	add $t4, $t4, 32
 	b testConvertedA
