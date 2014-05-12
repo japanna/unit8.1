@@ -10,12 +10,11 @@
 
 	.data
 
-table:    .word   3  -1  6  5  7  -3  -15  18  20 
-store: 	  .space  8									#store max & min
-n:        .word   9
+#table:    .word   3  -1  6  5  7  -3  -15  18  20 
+#n:        .word   9
 
-# TABLE:  .word   3
-# n:      .word   1
+table:     .word   3
+n:         .word   1
 
 #	.globl  test_loop
  #       .globl  length_loop
