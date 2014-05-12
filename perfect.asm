@@ -71,7 +71,7 @@ li $v0, 10 					# quit program
 	syscall
 
 is_sum:
-	beq $s1, $t5, print			# if the sum equals the number we're looking at, 
+	ble $s1, $t5, print			# if the sum equals the number we're looking at, 
 								# print the number 
 
 increment:
