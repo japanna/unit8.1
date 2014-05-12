@@ -22,14 +22,13 @@
 	.text
 
 main:
-
 	li $s0, 0					# represents the sum
 
 	li $s1, 5 					# lower limit
 	li $s2, 500 				# upper limit
 
 count:
-	bgt $s1, $s2, end 			# if we've counted up to 500, end
+	beq $s1, $s2, end 			# if we've counted up to 500, end
 	li $t5, 1 					# counter for division
 
 inner:
