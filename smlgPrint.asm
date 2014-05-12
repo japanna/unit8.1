@@ -81,7 +81,7 @@ findMin:
  	add $s0, $s0, 4				
  	lw $s6, ($s0)				# the next in to be compared is s6
  	add $t0, $t0, 1 			# increment counter
- 	j findMmin 					# compare again
+ 	j findMin 					# compare again
 
  	smaller:
 	add $s0, $s0, 4				# s0 is now the address of the next int
