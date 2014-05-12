@@ -11,11 +11,11 @@
 
 	.data
 
-table:    .word   3  -1  6  5  7  -3  -15  18  20 
-n:        .word   9
+#table:    .word   3  -1  6  5  7  -3  -15  18  2 
+#n:        .word   9
 
-# table:  .word   3
-# n:      .word   1
+ table:  .word   3
+ n:      .word   1
 
 newline:         .asciiz  "\n"
 
@@ -33,7 +33,7 @@ main:
  								# (the first integer in the table)
  	add $t0, $t0, 1 			# increment counter
 
- 	beq $t0, $s3, end			# if counter equals no of elements we end
+ 	beq $t0, $s3, end2			# if counter equals no of elements we end
  								# (this is the case when there is only one element)
 
  	add $s0, $s0, 4				# s0 is now the address of the second int
@@ -103,8 +103,31 @@ end:
 	li $v0, 1 					# Print the min number 
 	syscall 
 
-	li $v0, 10 # kod för att sluta 
+	la     $a0, newline	    	# and then print out a newline.
+	li     $v0, 4
 	syscall
 
+	li $v0, 10 					# quit program 
+	syscall
+
+end2:
+	move $a0, $s1 
+	li $v0, 1 					# Print the max number 
+	syscall 
+
+	la     $a0, newline	    	# and then print out a newline.
+	li     $v0, 4
+	syscall
+
+	move $a0, $s1 
+	li $v0, 1 					# Print the min number (same number as above)
+	syscall 
+
+	la     $a0, newline	    	# and then print out a newline.
+	li     $v0, 4
+	syscall
+
+	li $v0, 10 					# quit program
+	syscall
 
 
