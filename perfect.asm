@@ -42,6 +42,7 @@ inner:
 
 summarize:
 	add $s0, $s0, $t5			# add divisor to current sum of divisors
+	beq $s0, $s1, is_sum	
 	add $t5, $t5, 1				# increment divisor
 	blt $s0, $s1, inner	  		# if the sum is less than the number looked at, 
 								#    keep finding divisors
@@ -49,7 +50,7 @@ summarize:
 	bgt $s0, $s1, increment		# if sum is equal to number but not all divisors found
 								# , it's not a perfect no 
 
-	beq $s0, $s1, is_sum							
+							
 
 print:
 	li $s0, 0					# reset sum
