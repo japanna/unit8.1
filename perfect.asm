@@ -47,7 +47,7 @@ summarize:
 	blt $s0, $s1, inner	  		# if the sum is less than the number looked at, 
 								#    keep finding divisors
 	
-	beq $s0, $s1, increment		# if sum is equal to number but not all divisors found
+	#beq $s0, $s1, increment		# if sum is equal to number but not all divisors found
 								# , it's not a perfect no 
 
 is_sum:
