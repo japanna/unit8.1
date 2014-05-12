@@ -48,7 +48,7 @@ inner:
 
 
 summarize:
-	add $s0, $s0, $t0			# add divisor to current sum of divisors
+	add $s0, $s0, $t5			# add divisor to current sum of divisors
 	add $t5, $t5, 1				# increment divisor
 	blt $s0, $s1, inner	  		# if the sum is less than the number looked at, 
 								#    keep finding divisors
