@@ -43,10 +43,13 @@ inner:
 summarize:
 	add $s0, $s0, $t5			# add divisor to current sum of divisors
 	add $t5, $t5, 1				# increment divisor
+	beq $s1, $t5, is_sum
 	blt $s0, $s1, inner	  		# if the sum is less than the number looked at, 
 								#    keep finding divisors
 	
 	bgt $s0, $s1, increment		# if sum is greater than number, it's not a perfect no 
+
+is_sum:
 	beq $s0, $s1, print			# if the sum equals the number we're looking at, 
 								# print the number 
 	
