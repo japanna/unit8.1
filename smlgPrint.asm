@@ -10,7 +10,7 @@
 
 	.data
 
-table:    .word   3  -1  6  5  7  -3  -15  18  2 
+table:    .word   3  -1  6  5  7  -3  -15  18  0 
 n:        .word   9
 
 # TABLE:  .word   3
