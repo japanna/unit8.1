@@ -22,7 +22,6 @@
 	.text
 
 main:
-	la $t1, numbers				# t1 is the address of the first divisor number
 
 	li $s0, 0					# represents the sum
 
