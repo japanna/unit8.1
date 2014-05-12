@@ -59,7 +59,7 @@ summarize:
 
 print:
 	li $s0, 0					# reset sum
-	lw $a0, $s1 					# print the perfect number
+	move $a0, $s1 				# print the perfect number
 	li $v0, 1 					
 	syscall
 	add $s1, $s1, 1 			# increment number we're looking at
