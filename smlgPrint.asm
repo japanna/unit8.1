@@ -50,7 +50,7 @@ inloop:
  
 #lw $s0 ($s1) 				# Lägg minnesord i s0 
  
-#move $a0, $s0 
+move $a0, $s0 
 li $v0, 1 					# Skriv ut det 
 syscall 
  
