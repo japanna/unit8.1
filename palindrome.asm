@@ -41,17 +41,19 @@ test_loop:
 	bge     $t1, $t2, is_palin	   		# if A >= B, it is a palindrome.
 
 	lb      $t3, ($t1)                 	# load the byte *A into $t3,
-	sub 	$t3, $t3, 0				# convert into ascii number
-	ble	$t3, 64, moveForward		# if the character is non alphanumeric
-	ble	$t3, 90, convertLowerA		# if the character is uppercase, convert to lower
-	bge	$t3, 123, moveForward		# if the character is non alphanumeric
+	sub 	$t3, $t3, 0					# convert into ascii number
+	ble	$t3, 64, moveForward			# if the character is not a letter (ASCII =< 64)
+	ble	$t3, 90, convertLowerA			# if the character is uppercase, convert to lower
+	ble	$t3, 96, moveForward			# if the character is not a letter (ASCII =< 96)
+	bge	$t3, 123, moveForward			# if the character is not a letter (ASCII >= 123)
 
 testConvertedA:
 	lb      $t4, ($t2)	           		# load the byte *B into $t4.
-	sub 	$t4, $t4, 0				# convert into ascii number
-	ble	$t4, 64, moveBack			# if the character is non alphanumeric
-	ble	$t4, 90, convertLowerB		# if the character is uppercase, convert to lower
-	bge	$t4, 123, moveBack			# if the character is non alphanumeric
+	sub 	$t4, $t4, 0					# convert into ascii number
+	ble	$t4, 64, moveBack				# if the character is not a letter (ASCII =< 64)
+	ble	$t4, 90, convertLowerB			# if the character is uppercase, convert to lower
+	ble	$t3, 96, moveForward			# if the character is not a letter (ASCII =< 96)
+	bge	$t4, 123, moveBack				# if the character is not a letter (ASCII >= 123)
 testConvertedB:
 	bne     $t3, $t4, not_palin	   		# if $t3 != $t4, not a palindrome.
 										# Otherwise,
