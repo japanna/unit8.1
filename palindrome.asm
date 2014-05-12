@@ -37,6 +37,22 @@ end_length_loop:
 
 
 test_loop:
+	move $a0, $t1 
+	li $v0, 1 					# Print the max number 
+	syscall 
+
+	la     $a0, newline	    	# and then print out a newline.
+	li     $v0, 4
+	syscall
+
+	move $a0, $t2 
+	li $v0, 1 					# Print the max number 
+	syscall 
+
+	la     $a0, newline	    	# and then print out a newline.
+	li     $v0, 4
+	syscall
+
 	bge     $t1, $t2, is_palin	   		# if A >= B, it is a palindrome.
 
 	lb      $t3, ($t1)                 	# load the byte *A into $t3,
