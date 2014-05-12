@@ -10,7 +10,7 @@
 
 	.data
 
-table:    .word   3  -1  6  5  7  -3  -15  18  2 
+table:    .word   3  -1  6  5  7  -3  -15  18  20 
 store: 	  .space  8									#store max & min
 n:        .word   9
 
