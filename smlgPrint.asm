@@ -1,21 +1,25 @@
-# palindrome.asm -- reads a line of text and tests whether it is a palindrome.
+# smlgPrint.asm -- prints the smallest and largest values found
+#				   in a non-empty table of N word-sized integers
+# by: Anna Ntenta CSCI E-10b, 2014
+
 ## Register usage:
-##	$t1	- A.
-##	$t2	- B.
-##	$t3	- the character *A.
-##	$t4	- the character *B.
-##	$v0	- syscall parameter / return values.
-##	$a0	- syscall parameters.
-##	$a1	- syscall parameters.
+##	$t1	- address of the number of elements in table
+##	$s3	- number of elements in table
+##	$t0 - counter of elements compared
+##	$s0	- the address of the table
+##	$s1	- contains the max integer
+##	$s5	- contains the min integer
+##	$a0	- syscall parameter
+
 
 
 	.data
 
-#table:    .word   3  -1  6  5  7  -3  -15  18  2 
-#n:        .word   9
+table:    .word   3  -1  6  5  7  -3  -15  18  2 
+n:        .word   9
 
- table:  .word   3
- n:      .word   1
+# table:  .word   3
+# n:      .word   1
 
 newline:         .asciiz  "\n"
 
@@ -26,15 +30,15 @@ main:
 	la $t1, n 					# t1 is the address of the quantity of items
 	lw $s3, ($t1) 				# s3 contains the data at addres t1
 	
-	li $t0, 0					# counter of elements in table
+	li $t0, 0					# counter of elements compared
 
 	la $s0, table 				# s0 is the address of the table 
 	lw $s1, ($s0)				# s1 contains the data at address s0,
  								# (the first integer in the table)
  	add $t0, $t0, 1 			# increment counter
 
- 	beq $t0, $s3, end2			# if counter equals no of elements we end
- 								# (this is the case when there is only one element)
+ 	beq $t0, $s3, end2			# if counter equals number of elements we end
+ 								# (the case when there is only one element)
 
  	add $s0, $s0, 4				# s0 is now the address of the second int
 	lw $s2, ($s0)				# s2 contains the data at address s0
@@ -68,7 +72,7 @@ reset:
  	add $t0, $t0, 1 			# increment counter
 
 	add $s0, $s0, 4				# s0 is now the address of the second int
-	lw $s6, ($s0)				# s2 contains the data at address s0
+	lw $s6, ($s0)				# s6 contains the data at address s0
 	add $t0, $t0, 1 			# increment counter
 
 	
