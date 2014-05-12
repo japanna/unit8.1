@@ -3,12 +3,11 @@
 # by: Anna Ntenta CSCI E-10b, 2014
 
 ## Register usage:
-##	$t1	- address of the number of elements in table
-##	$s3	- number of elements in table
-##	$t0 - counter of elements compared
-##	$s0	- the address of the table
-##	$s1	- contains the max integer
-##	$s5	- contains the min integer
+##	$s0	- counter for the sum of divisors
+##	$s1	- lower limit
+##	$s2 - upper limit
+##	$t5	- counter for division of number
+##	$t0	- test for remainder of 0
 ##	$a0	- syscall parameter
 
 
@@ -46,9 +45,10 @@ summarize:
 	add $t5, $t5, 1				# increment divisor
 	blt $s0, $s1, inner	  		# if the sum is less than the number looked at, 
 								#    keep finding divisors
+	
+	bgt $s0, $s1, increment		# if sum is greater than number, it's not a perfect no 
 	beq $s0, $s1, print			# if the sum equals the number we're looking at, 
 								# print the number 
-	bgt $s0, $s1, increment		# if sum is greater than number, it's not a perfect no 
 	
 
 print:
@@ -72,6 +72,6 @@ li $v0, 10 					# quit program
 
 increment:
 	add $s1, $s1, 1 		# increment number we're looking at
-	li $s0, 0					# reset sum
+	li $s0, 0				# reset sum
 	b count 				# goto beginning of outer loop
 
