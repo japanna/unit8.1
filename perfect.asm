@@ -15,7 +15,6 @@
 
 	.data
 
-	numbers: 	.space 2000			# allocate space in memory (more than enough) 
 	newline:         .asciiz  "\n"
 #	Upper_Limit:  .word   500
 #	Lower_Limit:  .word   5
@@ -26,17 +25,14 @@ main:
 	la $t1, numbers				# t1 is the address of the first divisor number
 
 	li $s0, 0					# represents the sum
-	li $s3, 0					# represents counter of numbers of divisors
-	li $t4, 0					# counts how many numbers have been printed
 
 	li $s1, 5 					# lower limit
 	li $s2, 500 				# upper limit
 
 count:
 	bgt $s1, $s2, end 			# if we've counted up to 500, end
-
-find_divisors:
 	li $t5, 1 					# counter for division
+
 inner:
 	beq $s1, $t5, increment		# we're done dividing this number
 	div $s1, $t5				# divide s1 by a number less than itself 
@@ -62,6 +58,11 @@ print:
 	move $a0, $s1 				# print the perfect number
 	li $v0, 1 					
 	syscall
+
+	la     $a0, newline	    	# and then print out a newline.
+	li     $v0, 4
+	syscall
+
 	add $s1, $s1, 1 			# increment number we're looking at
 	b count 					# goto beginning of outer loop
 
@@ -73,5 +74,6 @@ li $v0, 10 					# quit program
 
 increment:
 	add $s1, $s1, 1 		# increment number we're looking at
+	li $s0, 0					# reset sum
 	b count 				# goto beginning of outer loop
 
