@@ -41,14 +41,14 @@ test_loop:
 	bge     $t1, $t2, is_palin	   		# if A >= B, it is a palindrome.
 
 	lb      $t3, ($t1)                 	# load the byte *A into $t3,
-	sub 	$t3, $t3, '0'				# convert into ascii number
+	sub 	$t3, $t3, 0				# convert into ascii number
 	ble	$t3, 64, moveForward		# if the character is non alphanumeric
 	ble	$t3, 90, convertLowerA		# if the character is uppercase, convert to lower
 	bge	$t3, 123, moveForward		# if the character is non alphanumeric
 
 testConvertedA:
 	lb      $t4, ($t2)	           		# load the byte *B into $t4.
-	sub 	$t4, $t4, '0'				# convert into ascii number
+	sub 	$t4, $t4, 0				# convert into ascii number
 	ble	$t4, 64, moveBack			# if the character is non alphanumeric
 	ble	$t4, 90, convertLowerB		# if the character is uppercase, convert to lower
 	bge	$t4, 123, moveBack			# if the character is non alphanumeric
@@ -84,7 +84,7 @@ moveForward:
 	b	test_loop                  		#  and repeat the loop.
 
 convertLowerA:
-	add $t3, $t3, '32'
+	add $t3, $t3, 32
 	b testConvertedA
 
 moveBack:
@@ -92,7 +92,7 @@ moveBack:
 	b testConvertedA
 
 convertLowerB:
-	add $t4, $t4, '32'
+	add $t4, $t4, 32
 	b testConvertedA
 
 
