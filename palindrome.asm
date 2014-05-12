@@ -37,21 +37,6 @@ end_length_loop:
 
 
 test_loop:
-	move $a0, $t1 
-	li $v0, 1 					# Print the max number 
-	syscall 
-
-	la     $a0, newline	    	# and then print out a newline.
-	li     $v0, 4
-	syscall
-
-	move $a0, $t2 
-	li $v0, 1 					# Print the max number 
-	syscall 
-
-	la     $a0, newline	    	# and then print out a newline.
-	li     $v0, 4
-	syscall
 
 	bge     $t1, $t2, is_palin	   		# if A >= B, it is a palindrome.
 
@@ -71,6 +56,7 @@ testConvertedB:
 	bne     $t3, $t4, not_palin	   		# if $t3 != $t4, not a palindrome.
 										# Otherwise,
 	addu	$t1, $t1, 1                	#  increment A,
+moveBack:
 	subu	$t2, $t2, 1                	#  decrement B,
 	b	test_loop                  		#  and repeat the loop.
 
@@ -94,20 +80,22 @@ exit:			                  		# exit the program:
 	syscall			          			# make the system call.
 
 moveForward:
-	addu	$t1, $t1, 1                	#  increment A
+	addu	$t1, $t1, 1                	#  increment A,
 	b	test_loop                  		#  and repeat the loop.
 
 convertLowerA:
-	add $t3, $t3, 32					#convert to lowercase
-	b testConvertedA					# go back and test if palindrome
+	add $t3, $t3, '32'
+	b testConvertedA
 
 moveBack:
-	subu $t2, $t2, 1                	#  decrement B
-	b testConvertedA					# go back and test if palindrome
+	subu	$t2, $t2, 1                	#  decrement B,
+	b testConvertedA
 
 convertLowerB:
-	add $t4, $t4, 32					#convert to lowercase
-	b testConvertedA					# go back and test if palindrome
+	add $t4, $t4, '32'
+	b testConvertedA
+
+
 
 
 
