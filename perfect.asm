@@ -53,7 +53,7 @@ print:
 	la $t1, base				# t1 is the address of the first divisor number
 inner:
 	beq $t4, $s3, end			# if we have printed all divisors, end
-	move $a0, ($t1) 			# else
+	lw $a0, ($t1) 			# else
 	li $v0, 1 					# print the divisor
 	syscall
 	la $a0, newline	    	# and then print out a newline.
