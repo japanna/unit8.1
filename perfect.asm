@@ -42,8 +42,9 @@ inner:
 
 summarize:
 	add $s0, $s0, $t5			# add divisor to current sum of divisors
-	beq $s0, $s1, is_sum	
+	
 	add $t5, $t5, 1				# increment divisor
+	beq $s0, $s1, is_sum		# if sum equals current number
 	blt $s0, $s1, inner	  		# if the sum is less than the number looked at, 
 								#    keep finding divisors
 	
@@ -72,7 +73,7 @@ li $v0, 10 					# quit program
 	syscall
 
 is_sum:
-	ble $s1, $t5, print			# if the sum equals the number we're looking at, 
+	beq $t5, $s1, print		# if the divisor equals the number we're looking at, 
 								# print the number 
 
 increment:
