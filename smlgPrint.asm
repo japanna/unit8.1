@@ -8,17 +8,17 @@
 ##	$a0	- syscall parameters.
 ##	$a1	- syscall parameters.
 
+
 	.data
 
-#table:    .word   3  -1  6  5  7  -3  -15  18  20 
-#n:        .word   9
+table:    .word   3  -1  6  5  7  -3  -15  18  20 
+n:        .word   9
 
-table:     .word   3
-n:         .word   1
+# table:  .word   3
+# n:      .word   1
 
-#	.globl  test_loop
- #       .globl  length_loop
-#        .globl  string_space
+newline:         .asciiz  "\n"
+
 	    
 	.text
 
@@ -44,33 +44,67 @@ main:
 								# we don't quit too soon
 
 
-compare:
-	beq $t0, $s3, end			# if counter equals no of elements we end				
-	bgt $s1, $s2, greater		# if s1 > s2
+findMax:
+	beq $t0, $s3, reset			# if counter equals number of elements				
+	bgt $s1, $s2, greater		# else: if s1 > s2
 
- 	smaller:					# else
- 	move $s1, $s2					# the greater int is stored in s1
+ 	move $s1, $s2				# the greater int is stored in s1
  	add $s0, $s0, 4				
  	lw $s2, ($s0)				# the next in to be compared is s2
  	add $t0, $t0, 1 			# increment counter
- 	j compare 					# compare again
+ 	j findMax 					# compare again
 
  	greater:
 	add $s0, $s0, 4				# s0 is now the address of the next int
 	lw $s2, ($s0)				# s2 contains the data at address s0
 	add $t0, $t0, 1 			# increment counter
-	j compare 					# compare again
+	j findMax 					# compare again
+
+reset:
+	li $t0, 0					# reset counter of elements
+	la $s0, table 				# s0 is the address of the table 
+	lw $s5, ($s0)				# s5 contains the data at address s0,
+ 								# (the first integer in the table)
+ 	add $t0, $t0, 1 			# increment counter
+
+	add $s0, $s0, 4				# s0 is now the address of the second int
+	lw $s6, ($s0)				# s2 contains the data at address s0
+	add $t0, $t0, 1 			# increment counter
+
+	
+findMin:
+
+	beq $t0, $s3, end			# if counter equals number of elements				
+	blt $s5, $s6, smaller		# else: if s5 < s6
+
+ 	move $s5, $s6				# the smaller int is stored in s5
+ 	add $s0, $s0, 4				
+ 	lw $s6, ($s0)				# the next in to be compared is s6
+ 	add $t0, $t0, 1 			# increment counter
+ 	j findMmin 					# compare again
+
+ 	smaller:
+	add $s0, $s0, 4				# s0 is now the address of the next int
+	lw $s6, ($s0)				# s6 contains the data at address s0
+	add $t0, $t0, 1 			# increment counter
+	j findMin 					# compare again
+
 
 end:
 	move $a0, $s1 
-	li $v0, 1 # Skriv ut det 
+	li $v0, 1 					# Print the max number 
+	syscall 
+
+	la     $a0, newline	    	# and then print out a newline.
+	li     $v0, 4
+	syscall
+
+	move $a0, $s5 
+	li $v0, 1 					# Print the min number 
 	syscall 
 
 	li $v0, 10 # kod för att sluta 
 	syscall
 
 
-	# if s1 > s2 , store next int in s2, compare s1 & s2 again
-
-	# if s1 < s2, store s2 in s1, store next int in s2, compare s1, s2 again
 
