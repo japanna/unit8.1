@@ -114,6 +114,7 @@ convertLowerB:
 
 ## Here is where the data for this program is stored:
 	.data
+	newline:         .asciiz  "\n"
 string_space:	.space	1024  	# set aside 1024 bytes for the string.
 is_palin_msg:	.asciiz "The string is a palindrome.\n"
 not_palin_msg:	.asciiz "The string is not a palindrome.\n"
