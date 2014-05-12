@@ -15,7 +15,7 @@
 
 	.data
 
-	numbers: 	.space 40			# allocate space in memory (more than enough) 
+	numbers: 	.space 2000			# allocate space in memory (more than enough) 
 	newline:         .asciiz  "\n"
 #	Upper_Limit:  .word   500
 #	Lower_Limit:  .word   5
@@ -32,39 +32,46 @@ main:
 	li $s1, 5 					# lower limit
 	li $s2, 500 				# upper limit
 
+count:
+	bgt $s1, $s2, end 			# if we've counted up to 500, end
+
 find_divisors:
-	div $s2, $s1				# divide s2 by s1 
-	mfhi $t0					# the remainder is in HI - get it to check
+	li $t5, 1 					# counter for division
+inner:
+	beq $s1, $t5, increment		# we're done dividing this number
+	div $s1, $t5				# divide s1 by a number less than itself 
+	mfhi $t0					# the remainder is in HI - check if zero
 	beqz $t0, summarize			# if the remainder is 0, add it to sum
-	add $s1, $s1, 1				# otherwise increment lower limit
-	b find_divisors				# check if next number is a divisor
+	add $t5, $t5, 1				# otherwise increment divisor
+	b inner					# check if next number is a divisor
 
 
 
 summarize:
-	sw $t0, ($t1)					# store the divisor in numbers at address t1
-	add $s3, $s3, 1 			# increment counter of divisors
-	add $t1, $t1, 4 				# the next address that we'll store a divisor at
-	add $s0, $s0, $t0			# current sum of divisors
-	blt $s0, $s2, find_divisors # if the sum is less than 500, keep finding divisors
-	beq $s0, $s2, print			# if the sum equals 500, print all divisors 
+	add $s0, $s0, $t0			# add divisor to current sum of divisors
+	add $t5, $t5, 1				# increment divisor
+	blt $s0, $s1, inner	  		# if the sum is less than the number looked at, 
+								#    keep finding divisors
+	beq $s0, $s1, print			# if the sum equals the number we're looking at, 
+								# print the number 
+	bgt $s0, $s1, increment		# if sum is greater than number, it's not a perfect no 
+	
 
 print:
-	la $t1, numbers				# t1 is the address of the first divisor number
-inner:
-	beq $t4, $s3, end			# if we have printed all divisors, end
-	lw $a0, ($t1) 			# else
-	li $v0, 1 					# print the divisor
+	li $s0, 0					# reset sum
+	lw $a0, s1 					# print the perfect number
+	li $v0, 1 					
 	syscall
-	la $a0, newline	    	# and then print out a newline.
-	li $v0, 4
-	syscall
-	add $t4, $t4, 1 			# increment print counter
-	add $t1, $t1, 4 			# increment the address that we'll find a divisor at
-	b inner						# repeat
+	add $s1, $s1, 1 			# increment number we're looking at
+	b count 					# goto beginning of outer loop
 
 
 
 end:
 li $v0, 10 					# quit program
 	syscall
+
+increment:
+	add $s1, $s1, 1 		# increment number we're looking at
+	b count 				# goto beginning of outer loop
+
