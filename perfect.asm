@@ -42,7 +42,7 @@ find_divisors:
 
 
 summarize:
-	sw $t0, ($t1)					# store the divisor in numbers at address t1
+	sw $t0, $t1					# store the divisor in numbers at address t1
 	add $s3, $s3, 1 			# increment counter of divisors
 	add $t1, $t1, 4 				# the next address that we'll store a divisor at
 	add $s0, $s0, $t0			# current sum of divisors
