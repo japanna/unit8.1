@@ -42,7 +42,7 @@ find_divisors:
 
 
 summarize:
-	sw $t0, t1					# store the divisor in numbers at address t1
+	sw $t0, $t1					# store the divisor in numbers at address t1
 	add $s3, $s3, 1 			# increment counter of divisors
 	add $t1, $t1, 4 				# the next address that we'll store a divisor at
 	add $s0, $s0, $t0			# current sum of divisors
@@ -50,7 +50,7 @@ summarize:
 	beq $s0, $s2, print			# if the sum equals 500, print all divisors 
 
 print:
-	la $t1, base				# t1 is the address of the first divisor number
+	la $t1, numbers				# t1 is the address of the first divisor number
 inner:
 	beq $t4, $s3, end			# if we have printed all divisors, end
 	lw $a0, ($t1) 			# else
