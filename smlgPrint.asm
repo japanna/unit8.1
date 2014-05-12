@@ -26,7 +26,7 @@ n:        .word   9
 main:
 	la $t1, n 					# t1 is the address of the quantity of items
 	lw $s3, ($t1) 				# s3 contains the data at addres t1
-	add $s3, $s3, 1 			# add 1 to the number so that we don't quit too soon
+	#add $s3, $s3, 1 			# add 1 to the number so that we don't quit too soon
 
 	li $t0, 0					# counter of elements in table
 
