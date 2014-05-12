@@ -26,8 +26,7 @@ n:        .word   9
 main:
 	la $t1, n 					# t1 is the address of the quantity of items
 	lw $s3, ($t1) 				# s3 contains the data at addres t1
-	add $s3, $s3, 1 			# add 1 to the number so that we don't quit too soon
-
+	
 	li $t0, 0					# counter of elements in table
 
 	la $s0, table 				# s0 is the address of the table 
@@ -35,9 +34,15 @@ main:
  								# (the first integer in the table)
  	add $t0, $t0, 1 			# increment counter
 
+ 	beq $t0, $s3, end			# if counter equals no of elements we end
+ 								# (this is the case when there is only one element)
+
  	add $s0, $s0, 4				# s0 is now the address of the second int
 	lw $s2, ($s0)				# s2 contains the data at address s0
 	add $t0, $t0, 1 			# increment counter
+
+	add $s3, $s3, 1 			# add 1 to the quantity of elements so that 
+								# we don't quit too soon
 
 
 compare:
