@@ -42,16 +42,14 @@ inner:
 
 summarize:
 	add $s0, $s0, $t5			# add divisor to current sum of divisors
-	
 	add $t5, $t5, 1				# increment divisor
-	beq $s0, $s1, is_sum		# if sum equals current number
+	
 	blt $s0, $s1, inner	  		# if the sum is less than the number looked at, 
 								#    keep finding divisors
 	
-	bgt $s0, $s1, increment		# if sum is equal to number but not all divisors found
+	bgt $s0, $s1, increment		# if sum is greater to number 
 								# , it's not a perfect no 
 
-							
 
 print:
 	li $s0, 0					# reset sum
@@ -73,6 +71,7 @@ li $v0, 10 					# quit program
 	syscall
 
 is_sum:
+	
 	beq $t5, $s1, print		# if the divisor equals the number we're looking at, 
 								# print the number 
 
