@@ -31,7 +31,7 @@ count:
 	li $t5, 1 					# counter for division
 
 inner:
-	beq $s1, $t5, increment		# we're done dividing this number
+	beq $s1, $t5, is_sum		# we're done dividing this number
 	div $s1, $t5				# divide s1 by a number less than itself 
 	mfhi $t0					# the remainder is in HI - check if zero
 	beqz $t0, summarize			# if the remainder is 0, add it to sum
@@ -43,14 +43,9 @@ inner:
 summarize:
 	add $s0, $s0, $t5			# add divisor to current sum of divisors
 	add $t5, $t5, 1				# increment divisor
-	
-	blt $s0, $s1, inner	  		# if the sum is less than the number looked at, 
-								#    keep finding divisors
-	
-	bgt $s0, $s1, increment		# if sum is greater to number 
-								# , it's not a perfect no 
+	b inner
 
-	beq $s0, $s1, is_sum 		
+
 
 print:
 	li $s0, 0					# reset sum
@@ -71,11 +66,9 @@ end:
 li $v0, 10 					# quit program
 	syscall
 
-is_sum:
-	
-	beq $t5, $s1, print		# if the divisor equals the number we're looking at, 
-								# print the number 
-	b inner
+
+is_sum:	
+	beq $s0, $s1, print
 
 increment:
 	add $s1, $s1, 1 		# increment number we're looking at
