@@ -41,16 +41,16 @@ test_loop:
 
 	lb      $t3, ($t1)                 	# load the byte *A into $t3,
 	sub 	$t3, $t3, '0'				# convert into ascii number
-	bleq	$t3, 64, moveForward		# if the character is non alphanumeric
-	bleq	$t3, 90, convertLowerA		# if the character is uppercase, convert to lower
-	bgeq	$t3, 123, moveForward		# if the character is non alphanumeric
+	ble	$t3, 64, moveForward		# if the character is non alphanumeric
+	ble	$t3, 90, convertLowerA		# if the character is uppercase, convert to lower
+	bge	$t3, 123, moveForward		# if the character is non alphanumeric
 
 testConvertedA:
 	lb      $t4, ($t2)	           		# load the byte *B into $t4.
 	sub 	$t4, $t4, '0'				# convert into ascii number
-	bleq	$t4, 64, moveBack			# if the character is non alphanumeric
-	bleq	$t4, 90, convertLowerB		# if the character is uppercase, convert to lower
-	bgeq	$t4, 123, moveBack			# if the character is non alphanumeric
+	ble	$t4, 64, moveBack			# if the character is non alphanumeric
+	ble	$t4, 90, convertLowerB		# if the character is uppercase, convert to lower
+	bge	$t4, 123, moveBack			# if the character is non alphanumeric
 testConvertedB:
 	bne     $t3, $t4, not_palin	   		# if $t3 != $t4, not a palindrome.
 										# Otherwise,
