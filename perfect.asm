@@ -15,7 +15,7 @@
 
 	.data
 
-	numbers: .space 400			# allocate space in memory (more than enough) 
+	numbers: 	.space 40			# allocate space in memory (more than enough) 
 	newline:         .asciiz  "\n"
 #	Upper_Limit:  .word   500
 #	Lower_Limit:  .word   5
@@ -42,27 +42,7 @@ find_divisors:
 
 
 summarize:
-	sw $t0, $t1					# store the divisor in numbers at address t1
-	add $s3, $s3, 1 			# increment counter of divisors
-	add $t1, $t1, 4 				# the next address that we'll store a divisor at
-	add $s0, $s0, $t0			# current sum of divisors
-	blt $s0, $s2, find_divisors # if the sum is less than 500, keep finding divisors
-	beq $s0, $s2, print			# if the sum equals 500, print all divisors 
-
-print:
-	la $t1, numbers				# t1 is the address of the first divisor number
-inner:
-	beq $t4, $s3, end			# if we have printed all divisors, end
-	lw $a0, ($t1) 			# else
-	li $v0, 1 					# print the divisor
-	syscall
-	la $a0, newline	    	# and then print out a newline.
-	li $v0, 4
-	syscall
-	add $t4, $t4, 1 			# increment print counter
-	add $t1, $t1, 4 			# increment the address that we'll find a divisor at
-	b inner						# repeat
-
+	
 end:
 li $v0, 10 					# quit program
 	syscall
