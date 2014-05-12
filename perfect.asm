@@ -50,11 +50,6 @@ summarize:
 								# , it's not a perfect no 
 
 	beq $s0, $s1, is_sum							
-	
-is_sum:
-	beq $s1, $t5, print			# if the sum equals the number we're looking at, 
-								# print the number 
-	
 
 print:
 	li $s0, 0					# reset sum
@@ -74,6 +69,10 @@ print:
 end:
 li $v0, 10 					# quit program
 	syscall
+
+is_sum:
+	beq $s1, $t5, print			# if the sum equals the number we're looking at, 
+								# print the number 
 
 increment:
 	add $s1, $s1, 1 		# increment number we're looking at
